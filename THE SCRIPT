@@ -1,8 +1,6 @@
--- Put this LocalScript in StarterGui or StarterPlayerScripts
-
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "BALL3R ui"
+screenGui.Name = "BALL3RS farm"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -28,12 +26,12 @@ titleLabel.TextSize = 20
 titleLabel.Parent = mainFrame
 
 -- Create Button
-local myButton = Instance.new("TextButton") -- Corrected from "AFK" to "TextButton"
+local myButton = Instance.new("TextButton")
 myButton.Size = UDim2.new(0, 120, 0, 40)
 myButton.Position = UDim2.new(0.5, -60, 0.6, -20)
 myButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
 myButton.TextColor3 = Color3.new(1, 1, 1)
-myButton.Text = "AFK"
+myButton.Text = "GET SOME XP"
 myButton.Font = Enum.Font.SourceSans
 myButton.TextSize = 18
 myButton.Parent = mainFrame
@@ -44,7 +42,7 @@ myButton.MouseButton1Click:Connect(function()
     afkEnabled = not afkEnabled  -- This flips true/false
 
     if afkEnabled then
-        myButton.Text = "AFK: ON"
+        myButton.Text = "XP farm: ON"
         -- Start AFK loop
         task.spawn(function()
             while afkEnabled do
@@ -56,7 +54,7 @@ myButton.MouseButton1Click:Connect(function()
             end
         end)
     else
-        myButton.Text = "AFK: OFF"
+        myButton.Text = "XP farm: OFF"
         -- The loop will stop automatically because afkEnabled is now false
     end
 end)
