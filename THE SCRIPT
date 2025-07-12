@@ -1,0 +1,62 @@
+-- Put this LocalScript in StarterGui or StarterPlayerScripts
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "BALL3R ui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create main Frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 300, 0, 150)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = screenGui
+
+-- Create Title Label
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.Text = "ball3r AFK farm"
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 20
+titleLabel.Parent = mainFrame
+
+-- Create Button
+local myButton = Instance.new("TextButton") -- Corrected from "AFK" to "TextButton"
+myButton.Size = UDim2.new(0, 120, 0, 40)
+myButton.Position = UDim2.new(0.5, -60, 0.6, -20)
+myButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+myButton.TextColor3 = Color3.new(1, 1, 1)
+myButton.Text = "AFK"
+myButton.Font = Enum.Font.SourceSans
+myButton.TextSize = 18
+myButton.Parent = mainFrame
+
+local afkEnabled = false
+
+myButton.MouseButton1Click:Connect(function()
+    afkEnabled = not afkEnabled  -- This flips true/false
+
+    if afkEnabled then
+        myButton.Text = "AFK: ON"
+        -- Start AFK loop
+        task.spawn(function()
+            while afkEnabled do
+                task.wait(1) -- adjust delay if needed
+                local target = game:GetService("Workspace"):FindFirstChild("Lobby")
+                if target and target:FindFirstChild("MainLobby") and target.MainLobby:FindFirstChild("Parts") and target.MainLobby.Parts:FindFirstChild("Part") then
+                    game.Players.LocalPlayer.Character:MoveTo(target.MainLobby.Parts.Part.Position)
+                end
+            end
+        end)
+    else
+        myButton.Text = "AFK: OFF"
+        -- The loop will stop automatically because afkEnabled is now false
+    end
+end)
